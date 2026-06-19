@@ -3,9 +3,15 @@ package bg.LostLanguageLab.model.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 
 import java.util.UUID;
 
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ArchaicWordDto {
     @NotBlank(message = "Думата е задължителна")
     @Size(min = 2, max = 50, message = "Думата трябва да е между 2 и 50 символа")

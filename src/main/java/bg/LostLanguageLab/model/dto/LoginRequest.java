@@ -1,6 +1,5 @@
 package bg.LostLanguageLab.model.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -10,22 +9,12 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterDTO {
-
+public class LoginRequest{
     @NotBlank
-    @Size(min = 2, max = 20)
+    @Size(min = 6, message = "Username must be at least 6 characters")
     private String username;
-
     @NotBlank
-    @Email
-    private String email;
-
-    @NotBlank
-    @Size(min = 5)
+    @Size(min = 6, max = 6, message = "Password must be exactly 6 characters")
     private String password;
 
-    @NotBlank
-    @Size(min = 5)
-    private String confirmPassword;
 }
-

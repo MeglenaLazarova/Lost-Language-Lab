@@ -2,7 +2,13 @@ package bg.LostLanguageLab.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CategoryDto {
 
     @NotBlank(message = "Типът е задължителен")

@@ -1,0 +1,67 @@
+package bg.LostLanguageLab.security;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import java.util.Set;
+import java.util.UUID;
+
+    @Component
+    public class SessionInterceptor implements HandlerInterceptor {
+
+        // Публични URL-и (без логин)
+        private static final Set<String> UNAUTHENTICATED_ENDPOINTS = Set.of(
+                "/", "/login", "/register"
+        );
+
+        // Админ URL-и (ако решиш да добавиш роли)
+        private static final Set<String> ADMIN_ENDPOINTS = Set.of(
+                "/admin", "/users", "/reports"
+        );
+
+        @Override
+        public boolean preHandle(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 Object handler) throws Exception {
+
+            String endpoint = request.getServletPath();
+
+            // Ако е публичен URL → позволяваме
+            if (UNAUTHENTICATED_ENDPOINTS.contains(endpoint)) {
+                return true;
+            }
+
+            HttpSession session = request.getSession(false);
+
+            // Ако няма сесия → redirect към login
+            if (session == null) {
+                response.sendRedirect("/login");
+                return false;
+            }
+
+            // Проверка за логнат потребител
+            UUID userId = (UUID) session.getAttribute("user_id");
+
+            if (userId == null) {
+                session.invalidate();
+                response.sendRedirect("/login");
+                return false;
+            }
+
+            // Ако е админ URL → тук може да добавиш проверка за роля
+            if (ADMIN_ENDPOINTS.contains(endpoint)) {
+                Boolean isAdmin = (Boolean) session.getAttribute("is_admin");
+                if (isAdmin == null || !isAdmin) {
+                    response.sendRedirect("/home");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+
+

@@ -3,9 +3,15 @@ package bg.LostLanguageLab.model.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 
 import java.util.UUID;
 
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CommentDto {
 
     @NotBlank(message = "Коментарът не може да е празен")

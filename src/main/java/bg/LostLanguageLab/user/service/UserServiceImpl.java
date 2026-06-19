@@ -1,10 +1,10 @@
-package bg.LostLanguageLab.user.service.impl;
+package bg.LostLanguageLab.user.service;
 
+import bg.LostLanguageLab.model.dto.LoginRequest;
+import bg.LostLanguageLab.model.dto.UserDto;
 import bg.LostLanguageLab.user.entity.User;
 import bg.LostLanguageLab.user.entity.UserRole;
 import bg.LostLanguageLab.user.repository.UserRepo;
-import bg.LostLanguageLab.user.service.UserService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,36 +26,24 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
-    public User register(String username, String email, String password) {
+    public User login(LoginRequest loginRequest) {
+        Optional<User> optionalUser = userRepo.findByUsername(loginRequest.getUsername());
 
-        User user = User.builder()
-                .username(username)
-                .email(email)
-                .password(passwordEncoder.encode(password))
-                .role(UserRole.USER)
-                .build();
+        if (optionalUser.isEmpty()) {
+            throw new RuntimeException("Invalid username or password");
+        }
 
-        return userRepo.save(user);
+        String password = loginRequest.getPassword();
+        String hashedPass = optionalUser.get().getPassword();
+
+        if (!passwordEncoder.matches(password, hashedPass)) {
+            throw new RuntimeException("Invalid username or password");
+        }
+
+        return optionalUser.get();
     }
 
-    @Override
-    public Optional<User> findByUsername(String username) {
-        return userRepo.findByUsername(username);
-    }
 
-    @Override
-    public User getById(UUID id) {
-        return userRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-    }
-
-    @Override
-    public boolean userExists(String username) {
-        return userRepo.findByUsername(username).isPresent();
-    }
-
-    @Override
     public void defaultAdmin() {
         if (userRepo.count() == 0) {
             User admin = User.builder()
@@ -67,6 +55,11 @@ public class UserServiceImpl implements UserService {
 
             userRepo.save(admin);
         }
+    }
+
+    @Override
+    public UserDto getById(UUID userId) {
+        return null;
     }
 }
 
