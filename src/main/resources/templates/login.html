@@ -5,10 +5,17 @@
     <title>Вход</title>
     <link rel="stylesheet" href="/css/login.css">
 </head>
+
 <body>
+
 <h1>Вход</h1>
 
+<div th:if="${error}" class="error">
+    <p th:text="${error}"></p>
+</div>
+
 <form action="/login" method="post">
+
     <label>Потребителско име:
         <input type="text" name="username" required>
     </label>
@@ -18,6 +25,8 @@
     </label>
 
     <button type="submit">Влез</button>
+
 </form>
+
 </body>
 </html>
