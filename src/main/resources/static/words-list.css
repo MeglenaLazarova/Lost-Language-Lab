@@ -1,0 +1,12 @@
+.words-table {
+    margin-top: 2rem;
+}
+
+.words-table a {
+    color: #2563eb;
+    font-weight: 500;
+}
+
+.words-table a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,8 @@
+.category-form {
+    max-width: 500px;
+    margin: 2rem auto;
+}
+
+.category-form textarea {
+    min-height: 100px;
+}
