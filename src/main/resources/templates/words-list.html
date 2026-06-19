@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <title>Списък с думи</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>Архаични думи</h1>
+<a href="/words/new">Добави дума</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>Дума</th>
+        <th>Категория</th>
+        <th>Тип</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- пример за Thymeleaf -->
+    <!--
+    <tr th:each="w : ${words}">
+        <td th:text="${w.word}"></td>
+        <td th:text="${w.category.name}"></td>
+        <td th:text="${w.category.type.categoryName}"></td>
+        <td><a th:href="@{'/words/' + ${w.id}}">Детайли</a></td>
+    </tr>
+    -->
+    </tbody>
+</table>
+</body>
+</html>

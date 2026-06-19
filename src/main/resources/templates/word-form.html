@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <title>Нова дума</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>Добави архаична дума</h1>
+
+<form action="/words" method="post">
+    <label>Дума:
+        <input type="text" name="word" required minlength="2" maxlength="100">
+    </label>
+
+    <label>Значение:
+        <textarea name="meaning" required minlength="5"></textarea>
+    </label>
+
+    <label>Произход:
+        <textarea name="origin"></textarea>
+    </label>
+
+    <label>Категория:
+        <select name="categoryId" required>
+            <!-- th:each="c : ${categories}" -->
+            <!-- <option th:value="${c.id}" th:text="${c.name}"></option> -->
+        </select>
+    </label>
+
+    <button type="submit">Запази</button>
+</form>
+</body>
+</html>
