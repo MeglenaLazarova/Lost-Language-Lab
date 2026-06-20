@@ -19,15 +19,24 @@
     </tr>
     </thead>
     <tbody>
-    <!-- пример за Thymeleaf -->
-    <!--
+
     <tr th:each="w : ${words}">
         <td th:text="${w.word}"></td>
         <td th:text="${w.category.name}"></td>
         <td th:text="${w.category.type.categoryName}"></td>
-        <td><a th:href="@{'/words/' + ${w.id}}">Детайли</a></td>
+        <td><a th:href="@{'/words/' + ${w.id}}">Детайли</a>
+        <td>
+            <form th:action="@{'/words/' + ${w.id} + '/delete'}" method="post">
+                <button type="submit"
+                        onclick="return confirm('Сигурен ли си, че искаш да изтриеш думата?')">
+                    Изтрий
+                </button>
+            </form>
+        </td>
+
+        </td>
     </tr>
-    -->
+
     </tbody>
 </table>
 </body>
