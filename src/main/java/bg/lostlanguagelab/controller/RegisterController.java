@@ -41,7 +41,21 @@ public class RegisterController {
             return new ModelAndView("register");
         }
 
-        userService.register(registerDto);
+        try {
+            userService.register(registerDto);
+        } catch (RuntimeException ex) {
+
+            if (ex.getMessage().equals("Username already exists")) {
+                bindingResult.rejectValue(
+                        "username",
+                        "error.username",
+                        "Потребителят вече съществува"
+                );
+                return new ModelAndView("register");
+            }
+
+            throw ex;
+        }
 
         redirectAttributes.addFlashAttribute("successfulRegistration", "Registration Successful");
         return new ModelAndView("redirect:/login");

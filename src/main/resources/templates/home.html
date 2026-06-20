@@ -10,13 +10,19 @@
 
 <header>
     <h1>LostLanguageLab</h1>
+
     <nav>
-        <a href="/home">Начало</a>
-        <a href="/words">Думи</a>
-        <a href="/categories">Категории</a>
-        <a href="/register">Регистрация</a>
-        <a href="/login">Вход</a>
+
+        <a th:if="${session.user_id == null}" href="/register">Регистрация</a>
+        <a th:if="${session.user_id == null}" href="/login">Вход</a>
+
+        <a th:if="${session.user_id != null}" href="/words">Думи</a>
+        <a th:if="${session.user_id != null}" href="/categories">Категории</a>
+        <a th:if="${session.user_id != null}" href="/add-word">Добави дума</a>
+        <a th:if="${session.user_id != null}" href="/logout">Изход</a>
+
     </nav>
+
 </header>
 
 <main class="home-container">
