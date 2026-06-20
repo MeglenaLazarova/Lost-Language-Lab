@@ -1,6 +1,7 @@
 package bg.lostlanguagelab.archaicWord.entity;
 
 import bg.lostlanguagelab.category.entity.Category;
+import bg.lostlanguagelab.category.enums.CategoryType;
 import bg.lostlanguagelab.comment.entity.Comment;
 import bg.lostlanguagelab.user.entity.User;
 import jakarta.persistence.*;
@@ -27,10 +28,13 @@ public class ArchaicWord {
     private String word;
     @Column(nullable = false)
     private String meaning;
+    @Column(nullable = false)
+    private String etymology;
+    private String exampleUsage;
     @ManyToOne(fetch = FetchType.EAGER)
     private User addedBy;
-    @ManyToOne(optional = false)
-    private Category category;
+    @Enumerated(EnumType.STRING)
+    private CategoryType category;
     @OneToMany(mappedBy = "word")
     @OrderBy("createdOn desc")
     private List<Comment> comments = new ArrayList<>();
