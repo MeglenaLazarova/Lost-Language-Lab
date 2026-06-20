@@ -5,6 +5,8 @@ import bg.lostlanguagelab.archaicWord.repository.ArchaicWordRepo;
 import bg.lostlanguagelab.model.dto.ArchaicWordDto;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class ArchaicWordServiceImpl implements ArchaicWordService {
 
@@ -25,5 +27,15 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
 
         repo.save(word);
     }
+
+    @Override
+    public void deleteById(UUID id) {
+        if (!repo.existsById(id)) {
+            throw new RuntimeException("Word not found: " + id);
+        }
+
+        repo.deleteById(id);
+    }
+
 }
 
