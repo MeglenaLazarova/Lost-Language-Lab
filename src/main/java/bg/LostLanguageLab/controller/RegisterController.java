@@ -31,18 +31,11 @@ public class RegisterController {
             return "register";
         }
 
-        if (userService.userExists(registerDTO.getUsername())) {
-            bindingResult.rejectValue("username", "error.username", "Потребителското име е заето");
-            return "register";
-        }
-
-        userService.register(
-                registerDTO.getUsername(),
-                registerDTO.getEmail(),
-                registerDTO.getPassword()
-        );
+        userService.register(registerDTO);
 
         return "redirect:/login";
     }
+
+
 }
 

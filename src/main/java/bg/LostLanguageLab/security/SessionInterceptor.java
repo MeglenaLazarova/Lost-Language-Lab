@@ -12,12 +12,10 @@ import java.util.UUID;
     @Component
     public class SessionInterceptor implements HandlerInterceptor {
 
-        // Публични URL-и (без логин)
         private static final Set<String> UNAUTHENTICATED_ENDPOINTS = Set.of(
                 "/", "/login", "/register"
         );
 
-        // Админ URL-и (ако решиш да добавиш роли)
         private static final Set<String> ADMIN_ENDPOINTS = Set.of(
                 "/admin", "/users", "/reports"
         );
@@ -29,20 +27,17 @@ import java.util.UUID;
 
             String endpoint = request.getServletPath();
 
-            // Ако е публичен URL → позволяваме
             if (UNAUTHENTICATED_ENDPOINTS.contains(endpoint)) {
                 return true;
             }
 
             HttpSession session = request.getSession(false);
 
-            // Ако няма сесия → redirect към login
             if (session == null) {
                 response.sendRedirect("/login");
                 return false;
             }
 
-            // Проверка за логнат потребител
             UUID userId = (UUID) session.getAttribute("user_id");
 
             if (userId == null) {
@@ -51,7 +46,6 @@ import java.util.UUID;
                 return false;
             }
 
-            // Ако е админ URL → тук може да добавиш проверка за роля
             if (ADMIN_ENDPOINTS.contains(endpoint)) {
                 Boolean isAdmin = (Boolean) session.getAttribute("is_admin");
                 if (isAdmin == null || !isAdmin) {

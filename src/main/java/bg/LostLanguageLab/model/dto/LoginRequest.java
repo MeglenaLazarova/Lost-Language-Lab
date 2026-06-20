@@ -11,10 +11,10 @@ import lombok.*;
 @AllArgsConstructor
 public class LoginRequest{
     @NotBlank
-    @Size(min = 6, message = "Username must be at least 6 characters")
+    @Size(min = 2, max = 20, message = "Username must be at least 6 characters")
     private String username;
     @NotBlank
-    @Size(min = 6, max = 6, message = "Password must be exactly 6 characters")
+    @Size(min = 5, message = "Password must be exactly 6 characters")
     private String password;
 
 }

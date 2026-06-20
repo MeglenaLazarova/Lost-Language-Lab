@@ -1,14 +1,17 @@
 package bg.LostLanguageLab.user.service;
 
 import bg.LostLanguageLab.model.dto.LoginRequest;
+import bg.LostLanguageLab.model.dto.RegisterDTO;
 import bg.LostLanguageLab.model.dto.UserDto;
 import bg.LostLanguageLab.user.entity.User;
 import bg.LostLanguageLab.user.entity.UserRole;
 import bg.LostLanguageLab.user.repository.UserRepo;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 import java.util.Optional;
 import java.util.UUID;
@@ -59,7 +62,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getById(UUID userId) {
-        return null;
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return new UserDto(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail()
+        );
+    }
+
+    @Transactional
+    public User register(RegisterDTO registerDTO) {
+
+        if (userRepo.findByUsername(registerDTO.getUsername()).isPresent()) {
+            throw new RuntimeException("Username already exists");
+        }
+
+        User user = User.builder()
+                .username(registerDTO.getUsername())
+                .email(registerDTO.getEmail())
+                .password(passwordEncoder.encode(registerDTO.getPassword()))
+                .role(UserRole.USER)
+                .build();
+
+        return userRepo.save(user);
     }
 }
 
