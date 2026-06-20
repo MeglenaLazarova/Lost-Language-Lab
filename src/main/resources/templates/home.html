@@ -18,7 +18,7 @@
 
         <a th:if="${session.user_id != null}" href="/words">Думи</a>
         <a th:if="${session.user_id != null}" href="/categories">Категории</a>
-        <a th:if="${session.user_id != null}" href="/add-word">Добави дума</a>
+        <a th:if="${session.user_id != null}" href="/words/new">Добави дума</a>
         <a th:if="${session.user_id != null}" href="/logout">Изход</a>
 
     </nav>

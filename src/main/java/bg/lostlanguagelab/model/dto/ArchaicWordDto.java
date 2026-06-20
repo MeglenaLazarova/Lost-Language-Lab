@@ -1,5 +1,6 @@
 package bg.lostlanguagelab.model.dto;
 
+import bg.lostlanguagelab.category.enums.CategoryType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -28,5 +29,6 @@ public class ArchaicWordDto {
     private String exampleUsage;
 
     @NotNull(message = "Категорията е задължителна")
-    private UUID categoryId;
+    private CategoryType categoryId;
+
 }

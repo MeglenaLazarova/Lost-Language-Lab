@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <title>Добави дума</title>
+</head>
+<body>
+
+<h1>Добавяне на архаична дума</h1>
+
+<form th:action="@{/words/new}" th:object="${wordDTO}" method="post">
+
+    <label>Дума:</label>
+    <input type="text" th:field="*{word}">
+    <p th:errors="*{word}"></p>
+
+    <label>Значение:</label>
+    <textarea th:field="*{meaning}"></textarea>
+    <p th:errors="*{meaning}"></p>
+
+    <label>Етимология:</label>
+    <input type="text" th:field="*{etymology}">
+    <p th:errors="*{etymology}"></p>
+
+    <label>Пример:</label>
+    <input type="text" th:field="*{exampleUsage}">
+    <p th:errors="*{exampleUsage}"></p>
+
+    <label>Категория:</label>
+    <select th:field="*{categoryId}">
+        <option value="">-- Избери категория --</option>
+
+        <option th:each="cat : ${categories}"
+                th:value="${cat}"
+                th:text="${cat.categoryName}">
+        </option>
+    </select>
+
+    <p th:errors="*{categoryId}"></p>
+
+    <button type="submit">Добави</button>
+</form>
+
+</body>
+</html>
