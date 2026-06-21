@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <title>Детайли за дума</title>
+</head>
+<body>
+
+<h1>Детайли за думата</h1>
+
+<div>
+    <p><strong>Дума:</strong>
+        <span th:text="${word.word}"></span>
+    </p>
+
+    <p><strong>Значение:</strong>
+        <span th:text="${word.meaning}"></span>
+    </p>
+
+    <p><strong>Етимология:</strong>
+        <span th:text="${word.etymology}"></span>
+    </p>
+
+    <p><strong>Пример:</strong>
+        <span th:text="${word.exampleUsage}"></span>
+    </p>
+
+    <p><strong>Категория:</strong>
+        <span th:text="${word.category.categoryName}"></span>
+    </p>
+</div>
+
+<br>
+
+<a href="/words">⬅ Назад към списъка</a>
+
+</body>
+</html>

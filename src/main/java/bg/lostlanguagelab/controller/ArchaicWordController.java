@@ -74,6 +74,13 @@ public class ArchaicWordController {
         return modelAndView;
     }
 
+    @GetMapping("/words/{id}")
+    public ModelAndView showWordDetails(@PathVariable UUID id) {
+        ModelAndView modelAndView = new ModelAndView("word-details");
+        modelAndView.addObject("word", archaicWordService.getById(id));
+        return modelAndView;
+    }
+
 
 }
 

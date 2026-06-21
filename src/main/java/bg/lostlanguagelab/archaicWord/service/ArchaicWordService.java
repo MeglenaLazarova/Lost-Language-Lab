@@ -11,5 +11,7 @@ public interface ArchaicWordService {
     void deleteById(UUID id);
 
     List<ArchaicWord> getAll();
+
+    ArchaicWord getById(UUID id);
 }
 

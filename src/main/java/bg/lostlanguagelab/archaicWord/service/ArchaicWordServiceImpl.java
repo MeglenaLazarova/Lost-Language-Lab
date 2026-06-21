@@ -2,29 +2,26 @@ package bg.lostlanguagelab.archaicWord.service;
 
 import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
 import bg.lostlanguagelab.archaicWord.repository.ArchaicWordRepo;
-import bg.lostlanguagelab.category.entity.Category;
-import bg.lostlanguagelab.category.repo.CategoryRepo;
 import bg.lostlanguagelab.model.dto.ArchaicWordDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class ArchaicWordServiceImpl implements ArchaicWordService {
 
     private final ArchaicWordRepo repo;
-    private final CategoryRepo categoryRepo;
-
 
 
     @Autowired
-    public ArchaicWordServiceImpl(ArchaicWordRepo repo, CategoryRepo categoryRepo) {
+    public ArchaicWordServiceImpl(ArchaicWordRepo repo) {
         this.repo = repo;
-        this.categoryRepo = categoryRepo;
     }
 
     @Override
@@ -55,6 +52,14 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
     public List<ArchaicWord> getAll() {
         return repo.findAll();
     }
+
+    @Override
+    public ArchaicWord getById(UUID id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Word not found"));
+    }
+
+
 
 }
 

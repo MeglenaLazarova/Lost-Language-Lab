@@ -7,6 +7,7 @@ import bg.lostlanguagelab.model.dto.CommentDto;
 import bg.lostlanguagelab.user.entity.User;
 import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
 import bg.lostlanguagelab.user.repository.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,6 +20,7 @@ public class CommentServiceImpl implements CommentService {
     private final UserRepo userRepository;
     private final ArchaicWordRepo wordRepository;
 
+    @Autowired
     public CommentServiceImpl(CommentRepo commentRepository,
                               UserRepo userRepository,
                               ArchaicWordRepo wordRepository) {
