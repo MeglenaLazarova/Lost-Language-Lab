@@ -16,10 +16,7 @@
         <a th:if="${session.user_id == null}" href="/register">Регистрация</a>
         <a th:if="${session.user_id == null}" href="/login">Вход</a>
 
-        <a th:if="${session.user_id != null}" href="/words">Думи</a>
-        <a th:if="${session.user_id != null}" href="/categories">Категории</a>
-        <a th:if="${session.user_id != null}" href="/words/new">Добави дума</a>
-        <a th:if="${session.user_id != null}" href="/logout">Изход</a>
+       <a th:if="${session.user_id != null}" href="/logout">Изход</a>
 
     </nav>
 
@@ -30,7 +27,6 @@
     <section class="hero">
         <h2>Добре дошли в LostLanguageLab</h2>
         <p>Проект за събиране, описване и запазване на архаични, диалектни и исторически български думи.</p>
-        <a class="btn-primary" href="/words">Разгледай думите</a>
     </section>
 
     <section class="features">

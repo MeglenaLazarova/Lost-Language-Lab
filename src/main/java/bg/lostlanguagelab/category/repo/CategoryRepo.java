@@ -9,4 +9,7 @@ import java.util.UUID;
 
 public interface CategoryRepo extends JpaRepository<Category, UUID> {
     Optional<Category> findByType(CategoryType type);
+
+    Optional<Category> findById(UUID id);
 }
+

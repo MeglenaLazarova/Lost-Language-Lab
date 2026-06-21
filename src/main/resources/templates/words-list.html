@@ -6,38 +6,38 @@
     <link rel="stylesheet" href="/css/words-list.css">
 </head>
 <body>
+
 <h1>Архаични думи</h1>
-<a href="/words/new">Добави дума</a>
 
 <table>
     <thead>
     <tr>
         <th>Дума</th>
         <th>Категория</th>
-        <th>Тип</th>
         <th>Действия</th>
     </tr>
     </thead>
-    <tbody>
 
+    <tbody>
     <tr th:each="w : ${words}">
         <td th:text="${w.word}"></td>
-        <td th:text="${w.category.name}"></td>
-        <td th:text="${w.category.type.categoryName}"></td>
-        <td><a th:href="@{'/words/' + ${w.id}}">Детайли</a>
+
+        <td th:text="${w.category.categoryName}"></td>
+
         <td>
-            <form th:action="@{'/words/' + ${w.id} + '/delete'}" method="post">
+            <a th:href="@{'/words/' + ${w.id}}">Детайли</a>
+
+            <form th:action="@{'/words/' + ${w.id} + '/delete'}"
+                  method="post" style="display:inline;">
                 <button type="submit"
                         onclick="return confirm('Сигурен ли си, че искаш да изтриеш думата?')">
                     Изтрий
                 </button>
             </form>
         </td>
-
-        </td>
     </tr>
-
     </tbody>
 </table>
+
 </body>
 </html>

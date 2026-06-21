@@ -30,5 +30,6 @@ public class Category {
     @OrderBy("word asc")
     private List<ArchaicWord> words = new ArrayList<>();
 
+
 }
 

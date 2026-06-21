@@ -34,6 +34,7 @@ public class ArchaicWord {
     @ManyToOne(fetch = FetchType.EAGER)
     private User addedBy;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private CategoryType category;
     @OneToMany(mappedBy = "word")
     @OrderBy("createdOn desc")

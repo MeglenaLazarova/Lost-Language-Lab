@@ -2,6 +2,7 @@ package bg.lostlanguagelab.controller;
 
 import bg.lostlanguagelab.archaicWord.service.ArchaicWordService;
 import bg.lostlanguagelab.category.enums.CategoryType;
+import bg.lostlanguagelab.category.service.CategoryService;
 import bg.lostlanguagelab.model.dto.ArchaicWordDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,13 @@ import java.util.UUID;
 public class ArchaicWordController {
 
     private final ArchaicWordService archaicWordService;
+    private final CategoryService categoryService;
+
 
     @Autowired
-    public ArchaicWordController(ArchaicWordService archaicWordService) {
+    public ArchaicWordController(ArchaicWordService archaicWordService, CategoryService categoryService) {
         this.archaicWordService = archaicWordService;
+        this.categoryService = categoryService;
     }
 
 
@@ -31,6 +35,7 @@ public class ArchaicWordController {
         ModelAndView modelAndView = new ModelAndView("add-word");
         modelAndView.addObject("wordDTO", new ArchaicWordDto());
         modelAndView.addObject("categories", CategoryType.values());
+
         return modelAndView;
     }
 
@@ -40,24 +45,33 @@ public class ArchaicWordController {
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            ModelAndView mav = new ModelAndView("add-word");
-            mav.addObject("categories", CategoryType.values());
-            return mav;
+            ModelAndView modelAndView = new ModelAndView("add-word");
+            modelAndView.addObject("categories", CategoryType.values());
+
+            return modelAndView;
         }
 
         System.out.println("Добавена дума: " + wordDTO.getWord());
-        System.out.println("Категория: " + wordDTO.getCategoryId());
+        System.out.println("Категория: " + wordDTO.getCategory());
 
-        return new ModelAndView("redirect:/home");
+        archaicWordService.create(wordDTO);
+
+        return new ModelAndView("redirect:/words");
     }
 
     @PostMapping("/words/{id}/delete")
     public ModelAndView deleteWord(@PathVariable UUID id) {
 
-
         archaicWordService.deleteById(id);
 
         return new ModelAndView("redirect:/words");
+    }
+
+    @GetMapping("/words")
+    public ModelAndView showWords() {
+        ModelAndView modelAndView = new ModelAndView("words-list");
+        modelAndView.addObject("words", archaicWordService.getAll());
+        return modelAndView;
     }
 
 
