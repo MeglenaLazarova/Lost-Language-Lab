@@ -2,16 +2,12 @@ package bg.lostlanguagelab.controller;
 
 import bg.lostlanguagelab.archaicWord.service.ArchaicWordService;
 import bg.lostlanguagelab.category.enums.CategoryType;
-import bg.lostlanguagelab.category.service.CategoryService;
 import bg.lostlanguagelab.model.dto.ArchaicWordDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
@@ -20,15 +16,11 @@ import java.util.UUID;
 public class ArchaicWordController {
 
     private final ArchaicWordService archaicWordService;
-    private final CategoryService categoryService;
-
 
     @Autowired
-    public ArchaicWordController(ArchaicWordService archaicWordService, CategoryService categoryService) {
+    public ArchaicWordController(ArchaicWordService archaicWordService) {
         this.archaicWordService = archaicWordService;
-        this.categoryService = categoryService;
     }
-
 
     @GetMapping("/words/new")
     public ModelAndView showAddWordForm() {
@@ -58,6 +50,7 @@ public class ArchaicWordController {
 
         return new ModelAndView("redirect:/words");
     }
+
 
     @PostMapping("/words/{id}/delete")
     public ModelAndView deleteWord(@PathVariable UUID id) {

@@ -11,21 +11,19 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    private final CategoryRepo categoryRepository;
+    private final CategoryRepo categoryRepo;
 
     @Autowired
-    public CategoryServiceImpl(CategoryRepo categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    public CategoryServiceImpl(CategoryRepo categoryRepo) {
+        this.categoryRepo= categoryRepo;
     }
 
-    @Override
     public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+        return categoryRepo.findAll();
     }
 
-    @Override
     public Category getByType(CategoryType type) {
-        return categoryRepository.findByType(type)
+        return categoryRepo.findByType(type)
                 .orElseThrow(() -> new RuntimeException("Category not found: " + type));
     }
 }

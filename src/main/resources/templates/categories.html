@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <title>Категории</title>
+</head>
+<body>
+
+<h1>Категории</h1>
+
+<div th:each="cat : ${categoriesMap}">
+    <h2 th:text="${cat.key.name()}"></h2>
+
+    <ul>
+        <li th:each="w : ${cat.value}">
+            <a th:href="@{'/words/' + ${w.id}}" th:text="${w.word}"></a>
+        </li>
+    </ul>
+
+    <hr>
+</div>
+
+</body>
+</html>

@@ -26,7 +26,7 @@ public class Category {
     private CategoryType type;
     @Column(columnDefinition = "TEXT")
     private String description;
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @OrderBy("word asc")
     private List<ArchaicWord> words = new ArrayList<>();
 
