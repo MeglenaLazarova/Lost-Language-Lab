@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Категории</title>
+    <link rel="stylesheet" href="/css/categories.css">
 </head>
+
 <body>
 
 <h1>Категории</h1>
 
 <div th:each="cat : ${categoriesMap}">
-    <h2 th:text="${cat.key.name()}"></h2>
+    <h2 th:text="${cat.key.categoryName}"></h2>
 
     <ul>
         <li th:each="w : ${cat.value}">
