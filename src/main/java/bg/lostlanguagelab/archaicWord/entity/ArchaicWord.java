@@ -1,6 +1,5 @@
 package bg.lostlanguagelab.archaicWord.entity;
 
-import bg.lostlanguagelab.category.entity.Category;
 import bg.lostlanguagelab.category.enums.CategoryType;
 import bg.lostlanguagelab.comment.entity.Comment;
 import bg.lostlanguagelab.user.entity.User;
