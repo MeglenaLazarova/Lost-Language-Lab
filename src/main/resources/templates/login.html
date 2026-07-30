@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
 
@@ -35,6 +35,7 @@
             <h3>Login Here</h3>
 
             <p class="succeeded-message" th:text="${successfulRegistration}"></p>
+            <p class="alert-warning" th:text="${errorMessage}"></p>
 
             <label for="username">Username</label>
             <input type="text" placeholder="Username" id="username" th:field="*{username}" required>

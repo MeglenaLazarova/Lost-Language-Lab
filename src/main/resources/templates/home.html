@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bg">
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>LostLanguageLab – Начало</title>
@@ -13,11 +13,14 @@
 
     <nav>
 
-        <a th:if="${session.user_id == null}" href="/register">Регистрация</a>
-        <a th:if="${session.user_id == null}" href="/login">Вход</a>
+        <a th:if="${not #authorization.expression('isAuthenticated()')}" href="/register">Регистрация</a>
+        <a th:if="${not #authorization.expression('isAuthenticated()')}" href="/login">Вход</a>
 
-       <a th:if="${session.user_id != null}" href="/logout">Изход</a>
+        <a href="#" onclick="document.getElementById('logoutForm').submit()">Изход</a>
 
+        <form id="logoutForm" th:action="@{/logout}" method="post" style="display:none;">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+        </form>
     </nav>
 
 </header>

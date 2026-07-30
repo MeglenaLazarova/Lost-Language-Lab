@@ -29,22 +29,22 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User login(LoginRequest loginRequest) {
-        Optional<User> optionalUser = userRepo.findByUsername(loginRequest.getUsername());
-
-        if (optionalUser.isEmpty()) {
-            throw new RuntimeException("Invalid username or password");
-        }
-
-        String password = loginRequest.getPassword();
-        String hashedPass = optionalUser.get().getPassword();
-
-        if (!passwordEncoder.matches(password, hashedPass)) {
-            throw new RuntimeException("Invalid username or password");
-        }
-
-        return optionalUser.get();
-    }
+//    public User login(LoginRequest loginRequest) {
+//        Optional<User> optionalUser = userRepo.findByUsername(loginRequest.getUsername());
+//
+//        if (optionalUser.isEmpty()) {
+//            throw new RuntimeException("Invalid username or password");
+//        }
+//
+//        String password = loginRequest.getPassword();
+//        String hashedPass = optionalUser.get().getPassword();
+//
+//        if (!passwordEncoder.matches(password, hashedPass)) {
+//            throw new RuntimeException("Invalid username or password");
+//        }
+//
+//        return optionalUser.get();
+//    }
 
 
     public void defaultAdmin() {

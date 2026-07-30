@@ -11,7 +11,7 @@ public interface UserService {
 
     UserDto getById(UUID userId);
 
-    User login(LoginRequest loginRequest);
+//    User login(LoginRequest loginRequest);
 
     User register(RegisterDTO registerDTO);
 
