@@ -5,22 +5,21 @@
     <title>Категории</title>
     <link rel="stylesheet" href="/css/categories.css">
 </head>
-
 <body>
 
 <h1>Категории</h1>
 
-<div th:each="cat : ${categoriesMap}">
-    <h2 th:text="${cat.key.categoryName}"></h2>
+    <div th:each="cat : ${categories}">
+        <h2 th:text="${cat.type}"></h2>
+        <p th:text="${cat.description}"></p>
+        <ul>
+            <li th:each="word : ${cat.words}">
+                <a th:href="@{'/words/' + ${word.id}}" th:text="${word.word}"></a>
+            </li>
+        </ul>
 
-    <ul>
-        <li th:each="w : ${cat.value}">
-            <a th:href="@{'/words/' + ${w.id}}" th:text="${w.word}"></a>
-        </li>
-    </ul>
-
-    <hr>
-</div>
+        <hr>
+    </div>
 
 </body>
 </html>
