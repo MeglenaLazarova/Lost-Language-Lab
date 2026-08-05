@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добави категория</title>
+    <link rel="stylesheet" href="/css/categories.css">
+</head>
+
+<body>
+
+<h1>Добави категория</h1>
+
+<form th:action="@{/categories/add}" th:object="${category}" method="post">
+
+    <label for="type">Тип категория:</label>
+    <select id="type" th:field="*{type}">
+        <option th:each="t : ${T(bg.lostlanguagelab.category.enums.CategoryType).values()}"
+                th:value="${t}"
+                th:text="${t.categoryName}">
+        </option>
+    </select>
+
+    <label for="description">Описание:</label>
+    <textarea id="description" th:field="*{description}" rows="4"></textarea>
+
+    <button type="submit">Добави</button>
+</form>
+
+</body>
+</html>

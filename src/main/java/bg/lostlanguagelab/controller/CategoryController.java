@@ -40,40 +40,36 @@ public class CategoryController {
         modelAndView.addObject("categoriesMap", map);
         return modelAndView;
     }
-    @GetMapping("/add")
+    @GetMapping("/categories/add")
     public ModelAndView showAddForm() {
-        ModelAndView modelAndView = new ModelAndView("categories/add");
+        ModelAndView modelAndView = new ModelAndView("add-category");
         modelAndView.addObject("category", new Category());
         return modelAndView;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/categories/add")
     public ModelAndView createCategory(@ModelAttribute Category category) {
         categoryService.create(category);
         return new ModelAndView("redirect:/categories");
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/categories/edit/{id}")
     public ModelAndView showEditForm(@PathVariable UUID id) {
         ModelAndView modelAndView = new ModelAndView("categories/edit");
         modelAndView.addObject("category", categoryService.getById(id));
         return modelAndView;
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/categories/edit/{id}")
     public ModelAndView updateCategory(@PathVariable UUID id, @ModelAttribute Category updated) {
         categoryService.update(id, updated);
         return new ModelAndView("redirect:/categories");
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/categories/delete/{id}")
     public ModelAndView deleteCategory(@PathVariable UUID id) {
         categoryService.delete(id);
         return new ModelAndView("redirect:/categories");
     }
-
-
-
-
 
 }
