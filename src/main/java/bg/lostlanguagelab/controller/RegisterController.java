@@ -1,7 +1,7 @@
-package lostlanguagelab.controller;
+package bg.lostlanguagelab.controller;
 
-import lostlanguagelab.model.dto.RegisterDTO;
-import lostlanguagelab.user.service.UserService;
+import bg.lostlanguagelab.model.dto.RegisterDTO;
+import bg.lostlanguagelab.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

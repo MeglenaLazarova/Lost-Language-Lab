@@ -1,7 +1,7 @@
-package lostlanguagelab.controller;
+package bg.lostlanguagelab.controller;
 
-import lostlanguagelab.model.dto.LoginRequest;
-import lostlanguagelab.user.service.UserServiceImpl;
+import bg.lostlanguagelab.model.dto.LoginRequest;
+import bg.lostlanguagelab.user.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

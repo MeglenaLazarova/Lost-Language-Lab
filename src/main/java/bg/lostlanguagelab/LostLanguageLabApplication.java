@@ -1,4 +1,4 @@
-package lostlanguagelab;
+package bg.lostlanguagelab;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

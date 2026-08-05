@@ -1,7 +1,7 @@
-package lostlanguagelab.security;
+package bg.lostlanguagelab.security;
 
-import lostlanguagelab.user.entity.User;
-import lostlanguagelab.user.repository.UserRepo;
+import bg.lostlanguagelab.user.entity.User;
+import bg.lostlanguagelab.user.repository.UserRepo;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

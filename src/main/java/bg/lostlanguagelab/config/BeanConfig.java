@@ -1,4 +1,4 @@
-package lostlanguagelab.config;
+package bg.lostlanguagelab.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

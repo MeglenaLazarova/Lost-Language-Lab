@@ -1,8 +1,8 @@
-package lostlanguagelab.archaicWord.entity;
+package bg.lostlanguagelab.archaicWord.entity;
 
-import lostlanguagelab.category.enums.CategoryType;
-import lostlanguagelab.comment.entity.Comment;
-import lostlanguagelab.user.entity.User;
+import bg.lostlanguagelab.category.enums.CategoryType;
+import bg.lostlanguagelab.comment.entity.Comment;
+import bg.lostlanguagelab.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

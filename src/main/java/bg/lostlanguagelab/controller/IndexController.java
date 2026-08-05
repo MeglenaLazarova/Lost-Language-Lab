@@ -1,8 +1,8 @@
-package lostlanguagelab.controller;
+package bg.lostlanguagelab.controller;
 
-import lostlanguagelab.model.dto.UserDto;
-import lostlanguagelab.security.UserData;
-import lostlanguagelab.user.service.UserServiceImpl;
+import bg.lostlanguagelab.model.dto.UserDto;
+import bg.lostlanguagelab.security.UserData;
+import bg.lostlanguagelab.user.service.UserServiceImpl;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package lostlanguagelab.category.enums;
+package bg.lostlanguagelab.category.enums;
 
 public enum CategoryType {
     DIALECT("Диалектна"),

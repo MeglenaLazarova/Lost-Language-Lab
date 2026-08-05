@@ -1,7 +1,7 @@
-package lostlanguagelab.comment.entity;
+package bg.lostlanguagelab.comment.entity;
 
-import lostlanguagelab.archaicWord.entity.ArchaicWord;
-import lostlanguagelab.user.entity.User;
+import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
+import bg.lostlanguagelab.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package lostlanguagelab.user.entity;
+package bg.lostlanguagelab.user.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

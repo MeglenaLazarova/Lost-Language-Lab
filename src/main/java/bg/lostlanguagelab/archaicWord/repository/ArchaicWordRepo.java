@@ -1,7 +1,7 @@
-package lostlanguagelab.archaicWord.repository;
+package bg.lostlanguagelab.archaicWord.repository;
 
-import lostlanguagelab.archaicWord.entity.ArchaicWord;
-import lostlanguagelab.category.enums.CategoryType;
+import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
+import bg.lostlanguagelab.category.enums.CategoryType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

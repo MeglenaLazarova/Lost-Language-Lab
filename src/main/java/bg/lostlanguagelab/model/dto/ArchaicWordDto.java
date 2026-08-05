@@ -1,6 +1,6 @@
-package lostlanguagelab.model.dto;
+package bg.lostlanguagelab.model.dto;
 
-import lostlanguagelab.category.enums.CategoryType;
+import bg.lostlanguagelab.category.enums.CategoryType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

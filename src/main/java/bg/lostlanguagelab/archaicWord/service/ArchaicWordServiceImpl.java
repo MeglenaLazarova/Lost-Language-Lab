@@ -1,8 +1,8 @@
-package lostlanguagelab.archaicWord.service;
+package bg.lostlanguagelab.archaicWord.service;
 
-import lostlanguagelab.archaicWord.entity.ArchaicWord;
-import lostlanguagelab.archaicWord.repository.ArchaicWordRepo;
-import lostlanguagelab.model.dto.ArchaicWordDto;
+import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
+import bg.lostlanguagelab.archaicWord.repository.ArchaicWordRepo;
+import bg.lostlanguagelab.model.dto.ArchaicWordDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

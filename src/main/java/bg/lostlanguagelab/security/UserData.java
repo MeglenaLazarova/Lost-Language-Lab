@@ -1,7 +1,7 @@
-package lostlanguagelab.security;
+package bg.lostlanguagelab.security;
 
 import jakarta.annotation.Nullable;
-import lostlanguagelab.user.entity.UserRole;
+import bg.lostlanguagelab.user.entity.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

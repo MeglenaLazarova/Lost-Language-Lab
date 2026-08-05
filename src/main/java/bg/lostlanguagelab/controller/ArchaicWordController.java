@@ -1,8 +1,8 @@
-package lostlanguagelab.controller;
+package bg.lostlanguagelab.controller;
 
-import lostlanguagelab.archaicWord.service.ArchaicWordService;
-import lostlanguagelab.category.enums.CategoryType;
-import lostlanguagelab.model.dto.ArchaicWordDto;
+import bg.lostlanguagelab.archaicWord.service.ArchaicWordService;
+import bg.lostlanguagelab.category.enums.CategoryType;
+import bg.lostlanguagelab.model.dto.ArchaicWordDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

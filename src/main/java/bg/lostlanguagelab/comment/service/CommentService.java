@@ -1,7 +1,7 @@
-package lostlanguagelab.comment.service;
+package bg.lostlanguagelab.comment.service;
 
-import lostlanguagelab.model.dto.CommentDto;
-import lostlanguagelab.comment.entity.Comment;
+import bg.lostlanguagelab.model.dto.CommentDto;
+import bg.lostlanguagelab.comment.entity.Comment;
 
 import java.util.List;
 import java.util.UUID;

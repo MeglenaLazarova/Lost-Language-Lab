@@ -1,6 +1,6 @@
-package lostlanguagelab.user.repository;
+package bg.lostlanguagelab.user.repository;
 
-import lostlanguagelab.user.entity.User;
+import bg.lostlanguagelab.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

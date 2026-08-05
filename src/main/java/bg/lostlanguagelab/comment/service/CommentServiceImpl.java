@@ -1,12 +1,12 @@
-package lostlanguagelab.comment.service;
+package bg.lostlanguagelab.comment.service;
 
-import lostlanguagelab.archaicWord.repository.ArchaicWordRepo;
-import lostlanguagelab.comment.entity.Comment;
-import lostlanguagelab.comment.repo.CommentRepo;
-import lostlanguagelab.model.dto.CommentDto;
-import lostlanguagelab.user.entity.User;
-import lostlanguagelab.archaicWord.entity.ArchaicWord;
-import lostlanguagelab.user.repository.UserRepo;
+import bg.lostlanguagelab.archaicWord.repository.ArchaicWordRepo;
+import bg.lostlanguagelab.comment.entity.Comment;
+import bg.lostlanguagelab.comment.repo.CommentRepo;
+import bg.lostlanguagelab.model.dto.CommentDto;
+import bg.lostlanguagelab.user.entity.User;
+import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
+import bg.lostlanguagelab.user.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;

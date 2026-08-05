@@ -1,6 +1,6 @@
-package lostlanguagelab.comment.repo;
+package bg.lostlanguagelab.comment.repo;
 
-import lostlanguagelab.comment.entity.Comment;
+import bg.lostlanguagelab.comment.entity.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

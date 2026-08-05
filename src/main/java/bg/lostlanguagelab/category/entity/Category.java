@@ -1,7 +1,7 @@
-package lostlanguagelab.category.entity;
+package bg.lostlanguagelab.category.entity;
 
-import lostlanguagelab.archaicWord.entity.ArchaicWord;
-import lostlanguagelab.category.enums.CategoryType;
+import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
+import bg.lostlanguagelab.category.enums.CategoryType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

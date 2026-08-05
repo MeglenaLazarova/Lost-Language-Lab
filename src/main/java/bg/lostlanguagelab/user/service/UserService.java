@@ -1,8 +1,8 @@
-package lostlanguagelab.user.service;
+package bg.lostlanguagelab.user.service;
 
-import lostlanguagelab.model.dto.RegisterDTO;
-import lostlanguagelab.model.dto.UserDto;
-import lostlanguagelab.user.entity.User;
+import bg.lostlanguagelab.model.dto.RegisterDTO;
+import bg.lostlanguagelab.model.dto.UserDto;
+import bg.lostlanguagelab.user.entity.User;
 
 import java.util.UUID;
 

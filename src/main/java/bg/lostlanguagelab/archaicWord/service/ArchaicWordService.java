@@ -1,7 +1,7 @@
-package lostlanguagelab.archaicWord.service;
+package bg.lostlanguagelab.archaicWord.service;
 
-import lostlanguagelab.archaicWord.entity.ArchaicWord;
-import lostlanguagelab.model.dto.ArchaicWordDto;
+import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
+import bg.lostlanguagelab.model.dto.ArchaicWordDto;
 
 import java.util.List;
 import java.util.UUID;

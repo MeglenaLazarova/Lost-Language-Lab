@@ -1,10 +1,10 @@
-package lostlanguagelab.user.service;
+package bg.lostlanguagelab.user.service;
 
-import lostlanguagelab.model.dto.RegisterDTO;
-import lostlanguagelab.model.dto.UserDto;
-import lostlanguagelab.user.entity.User;
-import lostlanguagelab.user.entity.UserRole;
-import lostlanguagelab.user.repository.UserRepo;
+import bg.lostlanguagelab.model.dto.RegisterDTO;
+import bg.lostlanguagelab.model.dto.UserDto;
+import bg.lostlanguagelab.user.entity.User;
+import bg.lostlanguagelab.user.entity.UserRole;
+import bg.lostlanguagelab.user.repository.UserRepo;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

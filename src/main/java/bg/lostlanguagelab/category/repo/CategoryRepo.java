@@ -1,7 +1,7 @@
-package lostlanguagelab.category.repo;
+package bg.lostlanguagelab.category.repo;
 
-import lostlanguagelab.category.entity.Category;
-import lostlanguagelab.category.enums.CategoryType;
+import bg.lostlanguagelab.category.entity.Category;
+import bg.lostlanguagelab.category.enums.CategoryType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,8 +1,8 @@
-package lostlanguagelab.controller;
+package bg.lostlanguagelab.controller;
 
-import lostlanguagelab.archaicWord.entity.ArchaicWord;
-import lostlanguagelab.archaicWord.repository.ArchaicWordRepo;
-import lostlanguagelab.category.enums.CategoryType;
+import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
+import bg.lostlanguagelab.archaicWord.repository.ArchaicWordRepo;
+import bg.lostlanguagelab.category.enums.CategoryType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
