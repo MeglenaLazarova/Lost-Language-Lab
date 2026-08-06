@@ -5,6 +5,7 @@ import bg.lostlanguagelab.category.enums.CategoryType;
 import bg.lostlanguagelab.category.repo.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
         this.categoryRepo= categoryRepo;
     }
 
+    @Override
     public List<Category> getAllCategories() {
         return categoryRepo.findAll();
     }
@@ -35,7 +37,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public Category update(UUID id, Category updated) {
+
+        if (updated.getDescription() == null || updated.getDescription().isBlank()) {
+            throw new IllegalArgumentException("Description cannot be empty");
+        }
+
         Category existing = getById(id);
 
         existing.setType(updated.getType());
@@ -45,6 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public void delete(UUID id) {
         categoryRepo.deleteById(id);
     }
