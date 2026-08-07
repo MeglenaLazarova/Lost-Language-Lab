@@ -14,6 +14,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ArchaicWordDto {
 
+    private UUID id;
+
     @NotBlank(message = "Думата е задължителна")
     @Size(min = 2, max = 50, message = "Думата трябва да е между 2 и 50 символа")
     private String word;

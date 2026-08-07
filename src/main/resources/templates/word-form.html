@@ -8,25 +8,35 @@
 <body>
 <h1>Добави архаична дума</h1>
 
-<form action="/words" method="post">
-    <label>Дума:
-        <input type="text" name="word" required minlength="2" maxlength="100">
-    </label>
+<form th:action="@{/words/new}"
+      th:object="${wordDTO}"
+      method="post">
 
-    <label>Значение:
-        <textarea name="meaning" required minlength="5"></textarea>
-    </label>
+    <label>Дума:</label>
+    <input type="text" th:field="*{word}">
+    <p th:errors="*{word}"></p>
 
-    <label>Произход:
-        <textarea name="origin"></textarea>
-    </label>
+    <label>Значение:</label>
+    <textarea th:field="*{meaning}"></textarea>
+    <p th:errors="*{meaning}"></p>
 
-    <label>Категория:
-        <select name="categoryId" required>
-            <!-- th:each="c : ${categories}" -->
-            <!-- <option th:value="${c.id}" th:text="${c.name}"></option> -->
-        </select>
-    </label>
+    <label>Етимология:</label>
+    <input type="text" th:field="*{etymology}">
+    <p th:errors="*{etymology}"></p>
+
+    <label>Пример:</label>
+    <input type="text" th:field="*{exampleUsage}">
+    <p th:errors="*{exampleUsage}"></p>
+
+    <label>Категория:</label>
+    <select th:field="*{categoryId}">
+        <option value="">-- Избери категория --</option>
+        <option th:each="c : ${categories}"
+                th:value="${c.id}"
+                th:text="${c.categoryName}">
+        </option>
+    </select>
+    <p th:errors="*{categoryId}"></p>
 
     <button type="submit">Запази</button>
 </form>

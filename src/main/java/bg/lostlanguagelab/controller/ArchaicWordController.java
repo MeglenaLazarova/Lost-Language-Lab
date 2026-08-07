@@ -2,7 +2,6 @@ package bg.lostlanguagelab.controller;
 
 import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
 import bg.lostlanguagelab.archaicWord.service.ArchaicWordService;
-import bg.lostlanguagelab.category.enums.CategoryType;
 import bg.lostlanguagelab.category.service.CategoryService;
 import bg.lostlanguagelab.comment.service.CommentService;
 import bg.lostlanguagelab.model.dto.ArchaicWordDto;
@@ -34,10 +33,12 @@ public class ArchaicWordController {
 
     @GetMapping("/words/new")
     public ModelAndView showAddWordForm() {
-        ModelAndView modelAndView = new ModelAndView("add-word");
+        ModelAndView modelAndView = new ModelAndView("word-form");
         modelAndView.addObject("wordDTO", new ArchaicWordDto());
         modelAndView.addObject("categories", categoryService.getAllCategories());
-
+        modelAndView.addObject("formAction", "/words/new");
+        modelAndView.addObject("formTitle", "Добави архаична дума");
+        modelAndView.addObject("submitLabel", "Добави");
         return modelAndView;
     }
 
@@ -47,9 +48,12 @@ public class ArchaicWordController {
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            ModelAndView modelAndView = new ModelAndView("add-word");
+            ModelAndView modelAndView = new ModelAndView("word-form");
+            modelAndView.addObject("wordDTO", wordDTO);
             modelAndView.addObject("categories", categoryService.getAllCategories());
-
+            modelAndView.addObject("formAction", "/words/new");
+            modelAndView.addObject("formTitle", "Добави архаична дума");
+            modelAndView.addObject("submitLabel", "Добави");
 
             return modelAndView;
         }
@@ -94,6 +98,7 @@ public class ArchaicWordController {
         ArchaicWord word = archaicWordService.getById(id);
 
         ArchaicWordDto dto = new ArchaicWordDto();
+        dto.setId(word.getId());
         dto.setWord(word.getWord());
         dto.setMeaning(word.getMeaning());
         dto.setEtymology(word.getEtymology());
@@ -103,6 +108,9 @@ public class ArchaicWordController {
         ModelAndView modelAndView = new ModelAndView("edit-word");
         modelAndView.addObject("wordDTO", dto);
         modelAndView.addObject("categories", categoryService.getAllCategories());
+        modelAndView.addObject("formAction", "/words/" + id + "/edit");
+        modelAndView.addObject("formTitle", "Редактиране на архаична дума");
+        modelAndView.addObject("submitLabel", "Запази промените");
 
         return modelAndView;
     }
@@ -115,7 +123,11 @@ public class ArchaicWordController {
 
         if (bindingResult.hasErrors()) {
             ModelAndView modelAndView = new ModelAndView("edit-word");
+            modelAndView.addObject("wordDTO", wordDTO);
             modelAndView.addObject("categories", categoryService.getAllCategories());
+            modelAndView.addObject("formAction", "/words/" + id + "/edit");
+            modelAndView.addObject("formTitle", "Редактиране на архаична дума");
+            modelAndView.addObject("submitLabel", "Запази промените");
             return modelAndView;
         }
 
@@ -123,7 +135,6 @@ public class ArchaicWordController {
 
         return new ModelAndView("redirect:/words/" + id);
     }
-
 
 }
 
