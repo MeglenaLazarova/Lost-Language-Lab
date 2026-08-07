@@ -1,7 +1,9 @@
 package bg.lostlanguagelab.controller;
 
+import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
 import bg.lostlanguagelab.archaicWord.service.ArchaicWordService;
 import bg.lostlanguagelab.category.enums.CategoryType;
+import bg.lostlanguagelab.category.service.CategoryService;
 import bg.lostlanguagelab.comment.service.CommentService;
 import bg.lostlanguagelab.model.dto.ArchaicWordDto;
 import bg.lostlanguagelab.model.dto.CommentDto;
@@ -20,19 +22,21 @@ public class ArchaicWordController {
 
     private final ArchaicWordService archaicWordService;
     private final CommentService commentService;
+    private final CategoryService categoryService;
 
 
     @Autowired
-    public ArchaicWordController(ArchaicWordService archaicWordService, CommentService commentService) {
+    public ArchaicWordController(ArchaicWordService archaicWordService, CommentService commentService, CategoryService categoryService) {
         this.archaicWordService = archaicWordService;
         this.commentService = commentService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/words/new")
     public ModelAndView showAddWordForm() {
         ModelAndView modelAndView = new ModelAndView("add-word");
         modelAndView.addObject("wordDTO", new ArchaicWordDto());
-        modelAndView.addObject("categories", CategoryType.values());
+        modelAndView.addObject("categories", categoryService.getAllCategories());
 
         return modelAndView;
     }
@@ -44,13 +48,14 @@ public class ArchaicWordController {
 
         if (bindingResult.hasErrors()) {
             ModelAndView modelAndView = new ModelAndView("add-word");
-            modelAndView.addObject("categories", CategoryType.values());
+            modelAndView.addObject("categories", categoryService.getAllCategories());
+
 
             return modelAndView;
         }
 
         System.out.println("Добавена дума: " + wordDTO.getWord());
-        System.out.println("Категория: " + wordDTO.getCategory());
+        System.out.println("Категория: " + wordDTO.getCategoryId());
 
         archaicWordService.create(wordDTO);
 
@@ -81,6 +86,42 @@ public class ArchaicWordController {
         modelAndView.addObject("comments", commentService.getCommentsForWord(id));
         modelAndView.addObject("commentDto", new CommentDto());
         return modelAndView;
+    }
+
+    @GetMapping("/words/{id}/edit")
+    public ModelAndView showEditWordForm(@PathVariable UUID id) {
+
+        ArchaicWord word = archaicWordService.getById(id);
+
+        ArchaicWordDto dto = new ArchaicWordDto();
+        dto.setWord(word.getWord());
+        dto.setMeaning(word.getMeaning());
+        dto.setEtymology(word.getEtymology());
+        dto.setExampleUsage(word.getExampleUsage());
+        dto.setCategoryId(word.getCategory().getId());
+
+        ModelAndView modelAndView = new ModelAndView("edit-word");
+        modelAndView.addObject("wordDTO", dto);
+        modelAndView.addObject("categories", categoryService.getAllCategories());
+
+        return modelAndView;
+    }
+
+    @PostMapping("/words/{id}/edit")
+    public ModelAndView editWord(
+            @PathVariable UUID id,
+            @Valid @ModelAttribute("wordDTO") ArchaicWordDto wordDTO,
+            BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("edit-word");
+            modelAndView.addObject("categories", categoryService.getAllCategories());
+            return modelAndView;
+        }
+
+        archaicWordService.update(id, wordDTO);
+
+        return new ModelAndView("redirect:/words/" + id);
     }
 
 

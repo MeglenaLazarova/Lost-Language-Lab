@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="bg" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирай категория</title>
+    <link rel="stylesheet" href="/css/category-form.css">
+</head>
+
+<body>
+
+<h1>Редактиране на категория</h1>
+
+<form th:action="@{'/categories/edit/' + ${category.id}}"
+      th:object="${category}"
+      method="post">
+
+
+    <label>Име на категория:</label>
+    <input type="text" th:field="*{categoryName}">
+    <p class="error" th:errors="*{categoryName}"></p>
+
+
+    <label>Описание:</label>
+    <textarea th:field="*{description}"></textarea>
+    <p class="error" th:errors="*{description}"></p>
+
+
+    <label>Тип:</label>
+    <select th:field="*{type}">
+        <option th:each="t : ${T(bg.lostlanguagelab.category.enums.CategoryType).values()}"
+                th:value="${t}"
+                th:text="${t.categoryName}">
+        </option>
+    </select>
+    <p class="error" th:errors="*{type}"></p>
+
+    <button type="submit">Запази промените</button>
+
+</form>
+
+    <a href="/categories" class="back-btn">Назад</a>
+</body>
+</html>

@@ -29,7 +29,6 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @OrderBy("word asc")
     private List<ArchaicWord> words = new ArrayList<>();
-
-
+    @Column(nullable = false)
+    private String categoryName;
 }
-

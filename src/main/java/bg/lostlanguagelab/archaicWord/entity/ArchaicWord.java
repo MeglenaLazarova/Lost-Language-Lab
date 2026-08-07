@@ -1,6 +1,6 @@
 package bg.lostlanguagelab.archaicWord.entity;
 
-import bg.lostlanguagelab.category.enums.CategoryType;
+import bg.lostlanguagelab.category.entity.Category;
 import bg.lostlanguagelab.comment.entity.Comment;
 import bg.lostlanguagelab.user.entity.User;
 import jakarta.persistence.*;
@@ -32,9 +32,9 @@ public class ArchaicWord {
     private String exampleUsage;
     @ManyToOne(fetch = FetchType.EAGER)
     private User addedBy;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private CategoryType category;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
     @OneToMany(mappedBy = "word")
     @OrderBy("createdOn desc")
     private List<Comment> comments = new ArrayList<>();
@@ -42,6 +42,5 @@ public class ArchaicWord {
     private LocalDateTime createdOn;
     @Column(nullable = false)
     private LocalDateTime updatedOn;
-
 
 }

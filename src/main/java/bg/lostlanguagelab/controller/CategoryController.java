@@ -3,12 +3,11 @@ package bg.lostlanguagelab.controller;
 import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
 import bg.lostlanguagelab.category.entity.Category;
 import bg.lostlanguagelab.category.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.LinkedHashMap;
@@ -48,21 +47,36 @@ public class CategoryController {
     }
 
     @PostMapping("/categories/add")
-    public ModelAndView createCategory(@ModelAttribute Category category) {
+    public ModelAndView createCategory(@Valid @ModelAttribute("category") Category category, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("add-category");
+            return modelAndView;
+        }
         categoryService.create(category);
         return new ModelAndView("redirect:/categories");
     }
 
     @GetMapping("/categories/edit/{id}")
     public ModelAndView showEditForm(@PathVariable UUID id) {
-        ModelAndView modelAndView = new ModelAndView("categories/edit");
+        ModelAndView modelAndView = new ModelAndView("edit-category");
         modelAndView.addObject("category", categoryService.getById(id));
         return modelAndView;
     }
 
     @PostMapping("/categories/edit/{id}")
-    public ModelAndView updateCategory(@PathVariable UUID id, @ModelAttribute Category updated) {
-        categoryService.update(id, updated);
+    public ModelAndView updateCategory(@Valid @PathVariable UUID id,
+                                       @ModelAttribute Category updated, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("edit-category");
+            return modelAndView;
+        }
+        Category existing = categoryService.getById(id);
+        existing.setCategoryName(updated.getCategoryName());
+        existing.setDescription(updated.getDescription());
+        existing.setType(updated.getType());
+
+        categoryService.create(existing);
         return new ModelAndView("redirect:/categories");
     }
 

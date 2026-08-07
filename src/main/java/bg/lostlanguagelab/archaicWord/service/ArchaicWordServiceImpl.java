@@ -2,6 +2,8 @@ package bg.lostlanguagelab.archaicWord.service;
 
 import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
 import bg.lostlanguagelab.archaicWord.repository.ArchaicWordRepo;
+import bg.lostlanguagelab.category.entity.Category;
+import bg.lostlanguagelab.category.service.CategoryService;
 import bg.lostlanguagelab.model.dto.ArchaicWordDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +16,13 @@ import java.util.UUID;
 public class ArchaicWordServiceImpl implements ArchaicWordService {
 
     private final ArchaicWordRepo repo;
+    private final CategoryService categoryService;
 
 
     @Autowired
-    public ArchaicWordServiceImpl(ArchaicWordRepo repo) {
+    public ArchaicWordServiceImpl(ArchaicWordRepo repo, CategoryService categoryService) {
         this.repo = repo;
+        this.categoryService = categoryService;
     }
 
     @Override
@@ -33,7 +37,8 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
         word.setMeaning(dto.getMeaning());
         word.setEtymology(dto.getEtymology());
         word.setExampleUsage(dto.getExampleUsage());
-        word.setCategory(dto.getCategory());
+        Category category = categoryService.getById(dto.getCategoryId());
+        word.setCategory(category);
         word.setCreatedOn(LocalDateTime.now());
         word.setUpdatedOn(LocalDateTime.now());
 
@@ -58,6 +63,25 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
     public ArchaicWord getById(UUID id) {
         return repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Word not found"));
+    }
+
+    @Override
+    public ArchaicWord update(UUID id, ArchaicWordDto dto) {
+
+        ArchaicWord existing = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Word not found: " + id));
+
+        existing.setWord(dto.getWord());
+        existing.setMeaning(dto.getMeaning());
+        existing.setEtymology(dto.getEtymology());
+        existing.setExampleUsage(dto.getExampleUsage());
+
+        Category category = categoryService.getById(dto.getCategoryId());
+        existing.setCategory(category);
+
+        existing.setUpdatedOn(LocalDateTime.now());
+
+        return repo.save(existing);
     }
 
 

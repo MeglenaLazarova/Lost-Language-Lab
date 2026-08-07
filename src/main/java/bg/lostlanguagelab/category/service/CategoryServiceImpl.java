@@ -47,6 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category existing = getById(id);
 
         existing.setType(updated.getType());
+        existing.setCategoryName(updated.getCategoryName());
         existing.setDescription(updated.getDescription());
 
         return categoryRepo.save(existing);
@@ -55,6 +56,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public void delete(UUID id) {
+        if (!categoryRepo.existsById(id)) {
+            throw new RuntimeException("Category not found: " + id);
+        }
         categoryRepo.deleteById(id);
     }
 

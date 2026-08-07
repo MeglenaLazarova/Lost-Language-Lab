@@ -2,15 +2,17 @@
 <html lang="bg" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Добави дума</title>
+    <title>Редактирай дума</title>
     <link rel="stylesheet" href="/css/word-form.css">
 </head>
 
 <body>
 
-<h1>Добавяне на архаична дума</h1>
+<h1>Редактиране на архаична дума</h1>
 
-<form th:action="@{/words/new}" th:object="${wordDTO}" method="post">
+<form th:action="@{'/words/' + ${wordDTO.id} + '/edit'}"
+      th:object="${wordDTO}"
+      method="post">
 
     <label>Дума:</label>
     <input type="text" th:field="*{word}">
@@ -31,15 +33,15 @@
     <label>Категория:</label>
     <select th:field="*{categoryId}">
         <option value="">-- Избери категория --</option>
+
         <option th:each="cat : ${categories}"
                 th:value="${cat.id}"
                 th:text="${cat.categoryName}">
         </option>
     </select>
-
     <p th:errors="*{categoryId}"></p>
 
-    <button type="submit">Добави</button>
+    <button type="submit">Запази промените</button>
 </form>
 
 </body>
