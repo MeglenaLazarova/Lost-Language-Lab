@@ -57,6 +57,8 @@
       method="post" th:object="${commentDto}">
     <textarea th:field="*{content}" rows="3" placeholder="Напиши коментар"></textarea>
     <br>
+    <input type="hidden" th:field="*{wordId}" th:value="${word.id}">
+    <input type="hidden" th:field="*{authorId}" th:value="${session.userId}">
     <button type="submit">Публикувай</button>
 </form>
 

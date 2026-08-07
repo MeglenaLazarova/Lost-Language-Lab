@@ -1,11 +1,13 @@
 package bg.lostlanguagelab.user.service;
 
+import bg.lostlanguagelab.model.dto.LoginRequest;
 import bg.lostlanguagelab.model.dto.RegisterDTO;
 import bg.lostlanguagelab.model.dto.UserDto;
 import bg.lostlanguagelab.user.entity.User;
 import bg.lostlanguagelab.user.entity.UserRole;
 import bg.lostlanguagelab.user.repository.UserRepo;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,24 +28,6 @@ public class UserServiceImpl implements UserService {
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
     }
-
-//    public User login(LoginRequest loginRequest) {
-//        Optional<User> optionalUser = userRepo.findByUsername(loginRequest.getUsername());
-//
-//        if (optionalUser.isEmpty()) {
-//            throw new RuntimeException("Invalid username or password");
-//        }
-//
-//        String password = loginRequest.getPassword();
-//        String hashedPass = optionalUser.get().getPassword();
-//
-//        if (!passwordEncoder.matches(password, hashedPass)) {
-//            throw new RuntimeException("Invalid username or password");
-//        }
-//
-//        return optionalUser.get();
-//    }
-
 
     public void defaultAdmin() {
         if (userRepo.count() == 0) {
@@ -85,6 +69,17 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         return userRepo.save(user);
+    }
+
+    public User login(@Valid LoginRequest loginRequest) {
+        User user = userRepo.findByUsername(loginRequest.getUsername())
+                .orElseThrow(() -> new RuntimeException("Invalid username or password"));
+
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Invalid username or password");
+        }
+
+        return user;
     }
 }
 
