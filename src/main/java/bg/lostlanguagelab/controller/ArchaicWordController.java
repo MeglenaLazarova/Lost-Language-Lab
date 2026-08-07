@@ -2,7 +2,9 @@ package bg.lostlanguagelab.controller;
 
 import bg.lostlanguagelab.archaicWord.service.ArchaicWordService;
 import bg.lostlanguagelab.category.enums.CategoryType;
+import bg.lostlanguagelab.comment.service.CommentService;
 import bg.lostlanguagelab.model.dto.ArchaicWordDto;
+import bg.lostlanguagelab.model.dto.CommentDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,10 +19,13 @@ import java.util.UUID;
 public class ArchaicWordController {
 
     private final ArchaicWordService archaicWordService;
+    private final CommentService commentService;
+
 
     @Autowired
-    public ArchaicWordController(ArchaicWordService archaicWordService) {
+    public ArchaicWordController(ArchaicWordService archaicWordService, CommentService commentService) {
         this.archaicWordService = archaicWordService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/words/new")
@@ -73,6 +78,8 @@ public class ArchaicWordController {
     public ModelAndView showWordDetails(@PathVariable UUID id) {
         ModelAndView modelAndView = new ModelAndView("word-details");
         modelAndView.addObject("word", archaicWordService.getById(id));
+        modelAndView.addObject("comments", commentService.getCommentsForWord(id));
+        modelAndView.addObject("commentDto", new CommentDto());
         return modelAndView;
     }
 

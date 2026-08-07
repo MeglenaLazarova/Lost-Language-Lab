@@ -33,6 +33,34 @@
 
 <br>
 
+<h2>Коментари</h2>
+
+<div th:if="${comments != null}">
+    <div th:each="c : ${comments}" class="comment-item">
+        <p>
+            <strong th:text="${c.author.username}"></strong>:
+            <span th:text="${c.content}"></span>
+        </p>
+
+        <form th:action="@{/comments/delete/{id}(id=${c.id})}" method="post">
+            <input type="hidden" name="wordId" th:value="${word.id}">
+            <button type="submit">Изтрий</button>
+        </form>
+
+        <hr>
+    </div>
+</div>
+
+<h3>Добави коментар</h3>
+
+<form  class="comment-form" th:action="@{/comments/add/{id}(id=${word.id})}"
+      method="post" th:object="${commentDto}">
+    <textarea th:field="*{content}" rows="3" placeholder="Напиши коментар"></textarea>
+    <br>
+    <button type="submit">Публикувай</button>
+</form>
+
+
 <a href="/words">⬅ Назад към списъка</a>
 
 </body>
