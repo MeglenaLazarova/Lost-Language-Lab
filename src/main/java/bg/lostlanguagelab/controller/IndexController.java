@@ -24,11 +24,6 @@ public class IndexController {
         return new ModelAndView("index");
     };
 
-//    @GetMapping("/home")
-//    public ModelAndView home(){
-//        return new ModelAndView("home");
-//    }
-
     @GetMapping("/home")
     public ModelAndView getHomePage(@AuthenticationPrincipal UserData userData){
         UserDto user = userServiceImpl.getById(userData.getId());
