@@ -2,8 +2,10 @@ package bg.lostlanguagelab.controller;
 
 import bg.lostlanguagelab.comment.service.CommentService;
 import bg.lostlanguagelab.model.dto.CommentDto;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -20,8 +22,17 @@ public class CommentController {
 
     @PostMapping("/add/{wordId}")
     public String addComment(@PathVariable UUID wordId,
-                             @ModelAttribute CommentDto commentDto,
+                             @Valid @ModelAttribute CommentDto commentDto,
+                             BindingResult bindingResult,
                              @SessionAttribute("userId") UUID userId) {
+
+        if (userId == null) {
+            return "redirect:/login";
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "redirect:/words/" + wordId;
+        }
 
         commentService.create(commentDto, wordId, userId);
         return "redirect:/words/" + wordId;

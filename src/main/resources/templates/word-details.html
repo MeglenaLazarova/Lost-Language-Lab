@@ -53,17 +53,24 @@
 
 <h3>Добави коментар</h3>
 
-<form  class="comment-form" th:action="@{/comments/add/{id}(id=${word.id})}"
-      method="post" th:object="${commentDto}">
-    <textarea th:field="*{content}" rows="3" placeholder="Напиши коментар"></textarea>
-    <br>
-    <input type="hidden" th:field="*{wordId}" th:value="${word.id}">
-    <input type="hidden" th:field="*{authorId}" th:value="${session.userId}">
-    <button type="submit">Публикувай</button>
-</form>
+<div th:if="${session.userId != null}">
+    <form  class="comment-form" th:action="@{/comments/add/{id}(id=${word.id})}"
+          method="post" th:object="${commentDto}">
+        <textarea th:field="*{content}" rows="3" placeholder="Напиши коментар"></textarea>
+        <p th:errors="*{content}"></p>
 
+        <input type="hidden" th:field="*{wordId}" th:value="${word.id}">
+        <input type="hidden" th:field="*{authorId}" th:value="${session.userId}">
 
-<a href="/words">⬅ Назад към списъка</a>
+        <button type="submit">Публикувай</button>
+    </form>
+</div>
+
+    <p th:if="${session.userId == null}">
+        Трябва да сте логнати, за да коментирате.
+    </p>
+
+    <a href="/words">⬅ Назад към списъка</a>
 
 </body>
 </html>
