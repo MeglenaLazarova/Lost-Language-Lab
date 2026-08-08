@@ -29,13 +29,15 @@
         <td>
             <a th:href="@{'/words/' + ${w.id}}">Детайли</a>
 
-            <form th:action="@{'/words/' + ${w.id} + '/delete'}"
-                  method="post" style="display:inline;">
-                <button type="submit"
-                        onclick="return confirm('Сигурен ли си, че искаш да изтриеш думата?')">
-                    Изтрий
-                </button>
-            </form>
+            <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                <form th:action="@{'/words/' + ${w.id} + '/delete'}"
+                      method="post" style="display:inline;">
+                    <button type="submit"
+                            onclick="return confirm('Сигурен ли си, че искаш да изтриеш думата?')">
+                        Изтрий
+                    </button>
+                </form>
+            </div>
         </td>
     </tr>
     </tbody>

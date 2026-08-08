@@ -2,14 +2,19 @@ package bg.lostlanguagelab.archaicWord.service;
 
 import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
 import bg.lostlanguagelab.archaicWord.repository.ArchaicWordRepo;
+import bg.lostlanguagelab.exception.UnauthorizedDeleteException;
 import bg.lostlanguagelab.model.dto.ArchaicWordDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class ArchaicWordServiceImpl implements ArchaicWordService {
 
@@ -41,11 +46,22 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
 
     @Override
     public void deleteById(UUID id) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth == null || !auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+
+            throw new UnauthorizedDeleteException("Only admin can delete words");
+        }
+
         if (!repo.existsById(id)) {
             throw new RuntimeException("Word not found: " + id);
         }
 
         repo.deleteById(id);
+
+        log.info("Admin deleted word {}", id);
     }
 
     @Override

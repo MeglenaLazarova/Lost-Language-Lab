@@ -23,6 +23,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                         .requestMatchers("/profile").authenticated()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/words/delete/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
