@@ -1,7 +1,8 @@
 package bg.lostlanguagelab.controller;
 
-import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
+import bg.lostlanguagelab.archaicWord.service.ArchaicWordService;
 import bg.lostlanguagelab.category.entity.Category;
+import bg.lostlanguagelab.category.enums.CategoryType;
 import bg.lostlanguagelab.category.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,35 +11,38 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 @Controller
 public class CategoryController {
     private final CategoryService categoryService;
+    private final ArchaicWordService archaicWordService;
 
     @Autowired
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService, ArchaicWordService archaicWordService) {
         this.categoryService = categoryService;
+        this.archaicWordService = archaicWordService;
     }
 
     @GetMapping("/categories")
     public ModelAndView viewCategories() {
         ModelAndView modelAndView = new ModelAndView("categories");
 
-        List<Category> categories = categoryService.getAllCategories();
+//        List<Category> categories = categoryService.getAllCategories();
+//
+//        Map<Category, List<ArchaicWord>> map = new LinkedHashMap<>();
+//
+//        for (Category category : categories) {
+//            map.put(category, category.getWords());
+//        }
+//
+//        modelAndView.addObject("categoriesMap", map);
 
-        Map<Category, List<ArchaicWord>> map = new LinkedHashMap<>();
-
-        for (Category category : categories) {
-            map.put(category, category.getWords());
-        }
-
-        modelAndView.addObject("categoriesMap", map);
+        modelAndView.addObject("types", CategoryType.values());
+        modelAndView.addObject("words", archaicWordService.getAll());
         return modelAndView;
     }
+
     @GetMapping("/categories/add")
     public ModelAndView showAddForm() {
         ModelAndView modelAndView = new ModelAndView("add-category");

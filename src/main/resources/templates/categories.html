@@ -3,18 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Категории</title>
-    <link rel="stylesheet" href="/css/categories.css">
+    <link rel="stylesheet" href="/css/words-list.css">
+    <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
 
+<div th:replace="fragments/navbar :: navbar"></div>
+
 <h1>Категории</h1>
 
-    <div th:each="cat : ${categories}">
-        <h2 th:text="${cat.type}"></h2>
-        <p th:text="${cat.description}"></p>
+    <div th:each="t : ${types}">
+        <h2 th:text="${t.categoryName}"></h2>
+
         <ul>
-            <li th:each="word : ${cat.words}">
-                <a th:href="@{'/words/' + ${word.id}}" th:text="${word.word}"></a>
+            <li th:each="w : ${words}" th:if="${w.category == t}">
+                <a th:href="@{'/words/' + ${w.id}}" th:text="${w.word}"></a>
             </li>
         </ul>
 
