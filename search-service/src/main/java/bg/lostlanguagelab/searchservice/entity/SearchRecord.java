@@ -21,5 +21,9 @@ public class SearchRecord {
 
     @Column(nullable = false)
     private Long time;
+
+    @Transient
+    private Long count;
+
 }
 

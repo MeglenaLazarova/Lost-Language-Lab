@@ -23,5 +23,11 @@ public class SearchController {
     public List<SearchRecord> getAllWords() {
         return searchService.getAllWords();
     }
+
+    @GetMapping("/top")
+    public List<SearchRecord> getTop3Words() {
+        return searchService.getTop3Words();
+    }
+
 }
 

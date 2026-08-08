@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,4 +28,18 @@ public class SearchService {
     public List<SearchRecord> getAllWords() {
         return repository.findAll();
     }
+
+    public List<SearchRecord> getTop3Words() {
+        return repository.findAll().stream()
+                .collect(Collectors.groupingBy(SearchRecord::getWord, Collectors.counting()))
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(3)
+                .map(entry -> SearchRecord.builder()
+                        .word(entry.getKey())
+                        .count(entry.getValue())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
 }
