@@ -1,5 +1,6 @@
 package bg.lostlanguagelab.user.service;
 
+import bg.lostlanguagelab.model.dto.EditProfileDTO;
 import bg.lostlanguagelab.model.dto.LoginRequest;
 import bg.lostlanguagelab.model.dto.RegisterDTO;
 import bg.lostlanguagelab.model.dto.UserDto;
@@ -42,6 +43,34 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Transactional
+    @Override
+    public void updateProfile(UUID userId, EditProfileDTO dto) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setUsername(dto.getUsername());
+        user.setEmail(dto.getEmail());
+
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+            user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
+
+        log.info("User {} updated profile: username={}, email={}",
+                userId, dto.getUsername(), dto.getEmail());
+
+    }
+
+    @Override
+    public void changeRole(UUID userId, UserRole newRole) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setRole(newRole);
+
+        log.info("Admin changed role of user {} to {}", userId, newRole);
+    }
+
     @Override
     public UserDto getById(UUID userId) {
         User user = userRepo.findById(userId)
@@ -81,5 +110,7 @@ public class UserServiceImpl implements UserService {
 
         return user;
     }
+
+
 }
 
