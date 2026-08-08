@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="/css/word-form.css">
 </head>
 <body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
 <h1>Добави архаична дума</h1>
 
 <form th:action="@{/words/new}"
@@ -29,14 +32,14 @@
     <p th:errors="*{exampleUsage}"></p>
 
     <label>Категория:</label>
-    <select th:field="*{categoryId}">
+    <select th:field="*{category}">
         <option value="">-- Избери категория --</option>
-        <option th:each="c : ${categories}"
-                th:value="${c.id}"
-                th:text="${c.categoryName}">
+        <option th:each="t : ${types}"
+                th:value="${t}"
+                th:text="${t.categoryName}">
         </option>
     </select>
-    <p th:errors="*{categoryId}"></p>
+    <p th:errors="*{category}"></p>
 
     <button type="submit">Запази</button>
 </form>
