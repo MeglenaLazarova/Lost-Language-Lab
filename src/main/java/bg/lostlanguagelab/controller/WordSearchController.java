@@ -1,8 +1,6 @@
 package bg.lostlanguagelab.controller;
 
 import bg.lostlanguagelab.client.SearchServiceClient;
-import bg.lostlanguagelab.model.dto.SearchRecordDto;
-import bg.lostlanguagelab.service.WordSearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,19 +16,12 @@ public class WordSearchController {
     @PostMapping("/search")
     public String searchWord(@RequestParam String word) {
         searchServiceClient.saveWord(word);
-        return "redirect:/search/top";
-    }
+        return "redirect:/search/top";}
 
     @GetMapping("/search/top")
-    public String showTop(Model model) {
-        model.addAttribute("topWords", searchServiceClient.getTop3Words());
-        return "top-words";
-    }
+    public String showTop(Model model) {model.addAttribute("topWords", searchServiceClient.getTop3Words());
+        return "top-words";}
 
     @GetMapping("/search")
     public String searchPage() {
-        return "search";
-    }
-
-}
-
+        return "search";}}
