@@ -9,6 +9,10 @@ import lombok.*;
 @AllArgsConstructor
 public class SearchRecordDto {
     private Long id;
+
     private String word;
+
     private Long time;
+
+    private Long count;
 }

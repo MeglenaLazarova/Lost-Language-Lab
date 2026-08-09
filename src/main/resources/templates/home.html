@@ -11,16 +11,15 @@
 <header>
     <h1>LostLanguageLab</h1>
 
+    <div th:replace="fragments/navbar :: navbar"></div>
+
     <nav>
 
         <a th:if="${not #authorization.expression('isAuthenticated()')}" href="/register">Регистрация</a>
         <a th:if="${not #authorization.expression('isAuthenticated()')}" href="/login">Вход</a>
 
-        <a href="#" onclick="document.getElementById('logoutForm').submit()">Изход</a>
+        <a th:if="${#authorization.expression('isAuthenticated()')}" href="/logout">Изход</a>
 
-        <form id="logoutForm" th:action="@{/logout}" method="post" style="display:none;">
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-        </form>
     </nav>
 
 </header>

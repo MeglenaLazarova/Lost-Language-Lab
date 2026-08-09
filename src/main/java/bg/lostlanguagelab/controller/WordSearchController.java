@@ -1,27 +1,46 @@
 package bg.lostlanguagelab.controller;
 
+import bg.lostlanguagelab.client.SearchServiceClient;
 import bg.lostlanguagelab.model.dto.SearchRecordDto;
 import bg.lostlanguagelab.service.WordSearchService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
-@RequestMapping("/search")
 public class WordSearchController {
 
-    private final WordSearchService wordSearchService;
+    private final SearchServiceClient searchServiceClient;
 
-    @PostMapping
-    public void save(@RequestParam String word) {
-        wordSearchService.saveWord(word);
+
+//    @PostMapping
+//    public void save(@RequestParam String word) {
+//        wordSearchService.saveWord(word);
+//    }
+
+//    @GetMapping("/history")
+//    public List<SearchRecordDto> history() {
+//        return wordSearchService.getAllWords();
+//    }
+    @PostMapping("/search")
+    public String searchWord(@RequestParam String word) {
+        searchServiceClient.saveWord(word);
+        return "redirect:/search/top";
     }
 
-    @GetMapping("/history")
-    public List<SearchRecordDto> history() {
-        return wordSearchService.getAllWords();
+    @GetMapping("/search/top")
+    public String showTop(Model model) {
+        model.addAttribute("topWords", searchServiceClient.getTop3Words());
+        return "top-words";
     }
+
+    @GetMapping("/search")
+    public String searchPage() {
+        return "search";
+    }
+
 }
 

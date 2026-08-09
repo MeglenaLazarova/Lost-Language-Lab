@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Търсене на думи</title>
+</head>
+<body>
+
+<h2>Търсене на думи</h2>
+
+<form action="/search" method="post">
+    <input type="text" name="word" placeholder="Въведи дума" required>
+    <button type="submit">Запиши думата</button>
+</form>
+
+<br>
+
+<a href="/search/top">Виж топ 3 думи</a>
+
+</body>
+</html>

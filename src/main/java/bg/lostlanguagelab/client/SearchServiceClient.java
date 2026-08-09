@@ -16,5 +16,9 @@ import java.util.List;
 
         @GetMapping("/api/search")
         List<SearchRecordDto> getAllWords();
+
+        @GetMapping("/api/search/top")
+        List<SearchRecordDto> getTop3Words();
+
     }
 

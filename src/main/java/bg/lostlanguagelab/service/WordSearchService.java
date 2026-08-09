@@ -20,5 +20,10 @@ public class WordSearchService {
     public List<SearchRecordDto> getAllWords() {
         return searchClient.getAllWords();
     }
+
+    public List<SearchRecordDto> getTop3Words() {
+        return searchClient.getTop3Words();
+    }
+
 }
 

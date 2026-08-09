@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Топ 3 думи</title>
+</head>
+<body>
+
+<h2>Топ 3 думи</h2>
+
+<ul>
+    <li th:each="w : ${topWords}">
+        <span th:text="${w.word}"></span>
+        —
+        <span th:text="${w.count}"></span> пъти
+    </li>
+</ul>
+
+<br>
+<a href="/search">Назад към търсене</a>
+
+</body>
+</html>
+

@@ -1,0 +1,15 @@
+POST http://localhost:8081/api/search?word=жътва
+
+POST http://localhost:8081/api/search?word=жътва
+
+POST http://localhost:8081/api/search?word=коситба
+
+POST http://localhost:8081/api/search?word=жътва
+
+POST http://localhost:8081/api/search?word=пладне
+
+GET http://localhost:8081/api/search
+
+GET http://localhost:8081/api/search/top
+
+GET http://localhost:8080/search/top
