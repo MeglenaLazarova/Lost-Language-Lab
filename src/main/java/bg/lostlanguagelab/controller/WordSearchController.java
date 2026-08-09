@@ -15,16 +15,6 @@ public class WordSearchController {
 
     private final SearchServiceClient searchServiceClient;
 
-
-//    @PostMapping
-//    public void save(@RequestParam String word) {
-//        wordSearchService.saveWord(word);
-//    }
-
-//    @GetMapping("/history")
-//    public List<SearchRecordDto> history() {
-//        return wordSearchService.getAllWords();
-//    }
     @PostMapping("/search")
     public String searchWord(@RequestParam String word) {
         searchServiceClient.saveWord(word);
