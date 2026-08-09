@@ -1,0 +1,16 @@
+[
+  {
+    "word": "word1",
+    "meaning": "meaning1",
+    "etymology": "etymology1",
+    "exampleUsage": "example1",
+    "category": "RENAISSANCE"
+  },
+  {
+    "word": "word2",
+    "meaning": "meaning2",
+    "etymology": "etymology2",
+    "exampleUsage": "example2",
+    "category": "DIALECT"
+  }
+]
