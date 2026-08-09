@@ -2,15 +2,18 @@ package bg.lostlanguagelab.archaicWord.service;
 
 import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
 import bg.lostlanguagelab.archaicWord.repository.ArchaicWordRepo;
+import bg.lostlanguagelab.category.enums.CategoryType;
 import bg.lostlanguagelab.exception.UnauthorizedDeleteException;
 import bg.lostlanguagelab.exception.WordAlreadyExistsException;
 import bg.lostlanguagelab.model.dto.ArchaicWordDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -42,6 +45,35 @@ class ArchaicWordServiceTest {
     }
 
     @Test
+    void testCreateWordCopiesAllFields() {
+        ArchaicWordDto dto = new ArchaicWordDto();
+        dto.setWord("test");
+        dto.setMeaning("meaning");
+        dto.setEtymology("origin");
+        dto.setExampleUsage("example");
+        dto.setCategory(CategoryType.MEDIEVAL);
+
+        when(repo.existsByWord("test")).thenReturn(false);
+
+        service.create(dto);
+
+        ArgumentCaptor<ArchaicWord> captor =
+                ArgumentCaptor.forClass(ArchaicWord.class);
+
+        verify(repo).save(captor.capture());
+
+        ArchaicWord saved = captor.getValue();
+
+        assertEquals("test", saved.getWord());
+        assertEquals("meaning", saved.getMeaning());
+        assertEquals("origin", saved.getEtymology());
+        assertEquals("example", saved.getExampleUsage());
+        assertEquals(CategoryType.MEDIEVAL, saved.getCategory());
+        assertNotNull(saved.getCreatedOn());
+        assertNotNull(saved.getUpdatedOn());
+    }
+
+    @Test
     void testCreateWordThrowsException() {
         ArchaicWordDto dto = new ArchaicWordDto();
         dto.setWord("duplicate");
@@ -50,6 +82,17 @@ class ArchaicWordServiceTest {
 
         assertThrows(WordAlreadyExistsException.class, () -> service.create(dto));
     }
+
+    @Test
+    void testGetAllWords() {
+        when(repo.findAll()).thenReturn(List.of(new ArchaicWord(), new ArchaicWord()));
+
+        List<ArchaicWord> result = service.getAll();
+
+        assertEquals(2, result.size());
+        verify(repo, times(1)).findAll();
+    }
+
 
     @Test
     void testGetById() {
@@ -92,5 +135,16 @@ class ArchaicWordServiceTest {
         assertEquals("new", updated.getWord());
         assertEquals("updated", updated.getMeaning());
     }
+
+    @Test
+    void testUpdateWordNotFound() {
+        UUID id = UUID.randomUUID();
+        ArchaicWordDto dto = new ArchaicWordDto();
+
+        when(repo.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> service.update(id, dto));
+    }
+
 }
 

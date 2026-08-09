@@ -28,16 +28,6 @@ public class CategoryController {
     public ModelAndView viewCategories() {
         ModelAndView modelAndView = new ModelAndView("categories");
 
-//        List<Category> categories = categoryService.getAllCategories();
-//
-//        Map<Category, List<ArchaicWord>> map = new LinkedHashMap<>();
-//
-//        for (Category category : categories) {
-//            map.put(category, category.getWords());
-//        }
-//
-//        modelAndView.addObject("categoriesMap", map);
-
         modelAndView.addObject("types", CategoryType.values());
         modelAndView.addObject("words", archaicWordService.getAll());
         return modelAndView;
