@@ -3,6 +3,7 @@ package bg.lostlanguagelab.archaicWord.service;
 import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
 import bg.lostlanguagelab.archaicWord.repository.ArchaicWordRepo;
 import bg.lostlanguagelab.exception.UnauthorizedDeleteException;
+import bg.lostlanguagelab.exception.WordAlreadyExistsException;
 import bg.lostlanguagelab.model.dto.ArchaicWordDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
     @Override
     public void create(ArchaicWordDto dto) {
         if (repo.existsByWord(dto.getWord())) {
-            throw new RuntimeException("Тази дума вече съществува!");
+            throw new WordAlreadyExistsException("Тази дума вече съществува!");
         }
 
         ArchaicWord word = new ArchaicWord();
