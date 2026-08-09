@@ -1,8 +1,8 @@
-package bg.lostlanguagelab.archaicWord.service;
+package bg.lostlanguagelab.controller.api;
 
 import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
+import bg.lostlanguagelab.archaicWord.service.ArchaicWordService;
 import bg.lostlanguagelab.category.enums.CategoryType;
-import bg.lostlanguagelab.controller.api.ArchaicWordRestController;
 import bg.lostlanguagelab.model.dto.ArchaicWordDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
