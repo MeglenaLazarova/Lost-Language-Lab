@@ -30,6 +30,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/home", true)
+                        .loginProcessingUrl("/process-login")
                         .failureUrl("/login?error")
                         .permitAll())
                 .logout(logout -> logout
