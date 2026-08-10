@@ -3,6 +3,8 @@ package bg.lostlanguagelab.searchservice.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "search_records")
 @Getter
@@ -13,8 +15,8 @@ import lombok.*;
 public class SearchRecord {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
     @Column(nullable = false)
     private String word;

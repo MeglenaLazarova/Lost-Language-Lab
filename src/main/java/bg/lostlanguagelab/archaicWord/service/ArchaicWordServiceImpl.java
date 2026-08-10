@@ -7,6 +7,8 @@ import bg.lostlanguagelab.exception.WordAlreadyExistsException;
 import bg.lostlanguagelab.model.dto.ArchaicWordDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,7 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
     }
 
     @Override
+    @CacheEvict(value = "words", allEntries = true)
     public void create(ArchaicWordDto dto) {
         if (repo.existsByWord(dto.getWord())) {
             throw new WordAlreadyExistsException("Тази дума вече съществува!");
@@ -46,6 +49,7 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
     }
 
     @Override
+    @CacheEvict(value = "words", allEntries = true)
     public void deleteById(UUID id) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -65,6 +69,7 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
         log.info("Admin deleted word {}", id);
     }
 
+    @Cacheable("words")
     @Override
     public List<ArchaicWord> getAll() {
         return repo.findAll();
@@ -77,6 +82,7 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
     }
 
     @Override
+    @CacheEvict(value = "words", allEntries = true)
     public ArchaicWord update(UUID id, ArchaicWordDto dto) {
 
         ArchaicWord existing = repo.findById(id)
