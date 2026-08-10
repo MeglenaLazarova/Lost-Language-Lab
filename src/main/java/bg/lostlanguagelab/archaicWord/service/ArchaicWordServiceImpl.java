@@ -31,6 +31,8 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
     @Override
     @CacheEvict(value = "words", allEntries = true)
     public void create(ArchaicWordDto dto) {
+        log.info("Attempting to create archaic word: {}", dto.getWord());
+
         if (repo.existsByWord(dto.getWord())) {
             throw new WordAlreadyExistsException("Тази дума вече съществува!");
         }
@@ -46,6 +48,8 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
         word.setUpdatedOn(LocalDateTime.now());
 
         repo.save(word);
+
+        log.info("Archaic word created successfully: {}", dto.getWord());
     }
 
     @Override
@@ -56,6 +60,8 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
 
         if (auth == null || !auth.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+
+            log.warn("Unauthorized delete attempt for word id={}", id);
 
             throw new UnauthorizedDeleteException("Only admin can delete words");
         }
@@ -72,11 +78,14 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
     @Cacheable("words")
     @Override
     public List<ArchaicWord> getAll() {
+        log.info("Fetching all archaic words");
         return repo.findAll();
     }
 
     @Override
     public ArchaicWord getById(UUID id) {
+        log.info("Fetching archaic word with id={}", id);
+
         return repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Word not found"));
     }
@@ -94,6 +103,8 @@ public class ArchaicWordServiceImpl implements ArchaicWordService {
         existing.setExampleUsage(dto.getExampleUsage());
         existing.setCategory(dto.getCategory());
         existing.setUpdatedOn(LocalDateTime.now());
+
+        log.info("Archaic word updated successfully: {}", id);
 
         return repo.save(existing);
     }

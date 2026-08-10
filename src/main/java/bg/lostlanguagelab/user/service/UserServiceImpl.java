@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
                     .build();
 
             userRepo.save(admin);
+            log.info("Default admin created successfully");
         }
     }
 
@@ -73,6 +74,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getById(UUID userId) {
+        log.info("Fetching user by id={}", userId);
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -97,6 +99,8 @@ public class UserServiceImpl implements UserService {
                 .role(UserRole.USER)
                 .build();
 
+        log.info("User registered successfully: {}", user);
+
         return userRepo.save(user);
     }
 
@@ -108,6 +112,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Invalid username or password");
         }
 
+        log.info("User logged in successfully: {}", loginRequest.getUsername());
         return user;
     }
 

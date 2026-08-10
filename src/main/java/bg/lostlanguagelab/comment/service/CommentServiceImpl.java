@@ -7,6 +7,7 @@ import bg.lostlanguagelab.model.dto.CommentDto;
 import bg.lostlanguagelab.user.entity.User;
 import bg.lostlanguagelab.archaicWord.entity.ArchaicWord;
 import bg.lostlanguagelab.user.repository.UserRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepo commentRepository;
@@ -31,13 +33,13 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void create(CommentDto dto, UUID wordId, UUID userId) {
+        log.info("Creating comment for wordId={} by userId={}", wordId, userId);
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         ArchaicWord word = wordRepository.findById(wordId)
                 .orElseThrow(() -> new RuntimeException("Word not found"));
-
         Comment comment = new Comment();
         comment.setContent(dto.getContent());
         comment.setCreatedOn(LocalDateTime.now());
@@ -45,15 +47,22 @@ public class CommentServiceImpl implements CommentService {
         comment.setWord(word);
 
         commentRepository.save(comment);
+
+        log.info("Comment created successfully for wordId={} by userId={}", wordId, userId);
     }
 
     @Override
     public List<Comment> getCommentsForWord(UUID wordId) {
+        log.info("Fetching comments for wordId={}", wordId);
         return commentRepository.findAllByWordIdOrderByCreatedOnDesc(wordId);
     }
 
     @Override
     public void delete(UUID commentId) {
+        log.info("Deleting comment with id={}", commentId);
+
         commentRepository.deleteById(commentId);
+
+        log.info("Comment deleted successfully: {}", commentId);
     }
 }
