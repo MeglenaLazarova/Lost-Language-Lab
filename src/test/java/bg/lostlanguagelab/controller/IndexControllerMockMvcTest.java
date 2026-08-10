@@ -68,7 +68,7 @@ class IndexControllerMockMvcTest {
    @Test
     void testHomePage_Unauthenticated() throws Exception {
         mockMvc.perform(get("/home"))
-                .andExpect(status().is3xxRedirection()) // Security redirects to login
+                .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrlPattern("**/login"));
     }
 }

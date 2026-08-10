@@ -105,7 +105,7 @@ class CategoryServiceTest {
         UUID id = UUID.randomUUID();
 
         Category updated = new Category();
-        updated.setDescription(""); // invalid
+        updated.setDescription("");
 
         assertThrows(IllegalArgumentException.class, () -> service.update(id, updated));
     }

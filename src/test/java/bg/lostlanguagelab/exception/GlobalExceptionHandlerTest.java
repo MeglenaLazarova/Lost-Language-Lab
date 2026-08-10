@@ -88,7 +88,7 @@ class GlobalExceptionHandlerTest {
                 .thenThrow(new RuntimeException("boom"));
 
         when(commentService.getCommentsForWord(any()))
-                .thenReturn(Collections.emptyList());   // важно!
+                .thenReturn(Collections.emptyList());
 
         mockMvc.perform(get("/words/" + UUID.randomUUID())
                         .with(user("test").roles("USER")))

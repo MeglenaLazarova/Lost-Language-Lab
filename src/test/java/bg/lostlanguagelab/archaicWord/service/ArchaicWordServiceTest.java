@@ -134,6 +134,7 @@ class ArchaicWordServiceTest {
 
         assertEquals("new", updated.getWord());
         assertEquals("updated", updated.getMeaning());
+        assertNotNull(updated.getUpdatedOn());
     }
 
     @Test
