@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Collections;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
@@ -86,12 +87,16 @@ class GlobalExceptionHandlerTest {
         when(archaicWordService.getById(any()))
                 .thenThrow(new RuntimeException("boom"));
 
+        when(commentService.getCommentsForWord(any()))
+                .thenReturn(Collections.emptyList());   // важно!
+
         mockMvc.perform(get("/words/" + UUID.randomUUID())
                         .with(user("test").roles("USER")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("error"))
                 .andExpect(model().attribute("message", "boom"));
     }
+
 
 
 }
