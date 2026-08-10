@@ -3,9 +3,11 @@ package bg.lostlanguagelab.searchservice.controller;
 import bg.lostlanguagelab.searchservice.entity.SearchRecord;
 import bg.lostlanguagelab.searchservice.service.SearchService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/search")
@@ -28,6 +30,13 @@ public class SearchController {
     public List<SearchRecord> getTop3Words() {
         return searchService.getTop3Words();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteRecord(@PathVariable UUID id) {
+        searchService.deleteRecord(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
 

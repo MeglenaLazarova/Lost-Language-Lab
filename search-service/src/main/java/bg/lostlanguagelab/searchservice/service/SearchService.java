@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,6 +41,14 @@ public class SearchService {
                         .count(entry.getValue())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    public void deleteRecord(UUID id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Record not found: " + id);
+        }
+
+        repository.deleteById(id);
     }
 
 }
