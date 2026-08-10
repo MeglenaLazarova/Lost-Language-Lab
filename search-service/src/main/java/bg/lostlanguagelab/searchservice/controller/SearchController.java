@@ -37,6 +37,5 @@ public class SearchController {
         return ResponseEntity.noContent().build();
     }
 
-
 }
 
