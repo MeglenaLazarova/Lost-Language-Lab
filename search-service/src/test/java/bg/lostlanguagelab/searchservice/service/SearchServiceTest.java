@@ -1,6 +1,7 @@
 package bg.lostlanguagelab.searchservice.service;
 
 import bg.lostlanguagelab.searchservice.entity.SearchRecord;
+import bg.lostlanguagelab.searchservice.exception.SearchRecordNotFoundException;
 import bg.lostlanguagelab.searchservice.repository.SearchRecordRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -81,5 +83,27 @@ class SearchServiceTest {
         assertEquals("cherry", top3.get(2).getWord());
         assertEquals(1, top3.get(2).getCount());
     }
+
+    @Test
+    void testDeleteRecordSuccess() {
+        UUID id = UUID.randomUUID();
+
+        when(repository.existsById(id)).thenReturn(true);
+
+        service.deleteRecord(id);
+
+        verify(repository).deleteById(id);
+    }
+
+    @Test
+    void testDeleteRecordNotFound() {
+        UUID id = UUID.randomUUID();
+
+        when(repository.existsById(id)).thenReturn(false);
+
+        assertThrows(SearchRecordNotFoundException.class,
+                () -> service.deleteRecord(id));
+    }
+
 }
 
